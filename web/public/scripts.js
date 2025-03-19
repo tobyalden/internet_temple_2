@@ -45,5 +45,58 @@ $(function() {
         $("#chat-input").val("");
     }
 
+    function updateStreamStatus() {
+        console.log("updating stream status");
+        $.getJSON("http://localhost:8000/status-json.xsl", function(data) {
+            if("source" in data.icestats) {
+                console.log("stream running");
+                setSteamStatus(true);
+            }
+            else {
+                console.log("stream not running");
+                setSteamStatus(false);
+            }
+        }).fail(function () {
+            console.log("stream not running");
+            setSteamStatus(false);
+        });
+    }
+
+    function setSteamStatus(isOnline) {
+        if(!isOnline) {
+            pauseAudio();
+        }
+        $("#player-controls-online").attr("hidden", !isOnline);
+        $("#player-controls-offline").attr("hidden", isOnline);
+    }
+
+    $('#player-controls-online').click(function() {
+        var audio = $("#player-audio")[0];
+        if(audio.duration > 0 && !audio.paused) {
+            pauseAudio();
+        }
+        else {
+            playAudio();
+        }
+    });
+
+    function pauseAudio() {
+        var audio = $("#player-audio")[0];
+        audio.pause();
+        $("#player-play").attr("hidden", false);
+        $("#player-pause").attr("hidden", true);
+    }
+
+    function playAudio() {
+        var audio = $("#player-audio")[0];
+        audio.play();
+        $("#player-play").attr("hidden", true);
+        $("#player-pause").attr("hidden", false);
+    }
+
+    updateStreamStatus();
+    setInterval(function() {
+        updateStreamStatus();
+    }, 5000);
 });
 

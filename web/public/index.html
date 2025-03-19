@@ -3,9 +3,10 @@
   <head>
      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>INTERNET TEMPLE 2</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
     <!--<link rel="shortcut icon" type="image/png" href="http://i.imgur.com/wds0irK.png"/>-->
-    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <div><link rel="stylesheet" type="text/css" href="styles.css" /></div>
   </head>
   <body>
     <div id="content">
@@ -14,12 +15,31 @@
             <!--<div>INTERNET RADIO</div>-->
         </div>
         <div id="player">
-            <audio controls>
+            <audio id="player-audio">
                 <source src="http://localhost:8000/stream" type="audio/ogg">
             </audio>
+            <div id="player-controls">
+                <div id="player-controls-online" hidden>
+                    <div>
+                        <i id="player-play" class="fa-solid fa-play"></i>
+                        <i id="player-pause" hidden class="fa-solid fa-pause"></i>
+                    </div>
+                    <div>
+                        ONLINE
+                    </div>
+                </div>
+                <div id="player-controls-offline">
+                    <div>
+                        <i class="fa-solid fa-ban"></i>
+                    </div>
+                    <div>
+                        OFFLINE
+                    </div>
+                </div>
+            </div>
         </div>
         <div id="chat">
-            <textarea id="chat-log">Welcome to chat.
+            <textarea readonly disabled id="chat-log">Welcome to chat.
 Use /name to change your name.</textarea>
             <input id="chat-input" type="text" autofocus="true" placeholder="Enter chat messages here">
             <button type="button" id="chat-send">Send</button>
