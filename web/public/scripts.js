@@ -40,7 +40,7 @@ $(function() {
             socket.emit("send chat message", oldUsername + " changed names to " + username + ".");
         }
         else {
-            socket.emit("send chat message", username + ": " + message);
+            socket.emit("send chat message", '<' + username + "> " + message);
         }
         $("#chat-input").val("");
     }
@@ -68,6 +68,8 @@ $(function() {
         }
         $("#player-controls-online").attr("hidden", !isOnline);
         $("#player-controls-offline").attr("hidden", isOnline);
+        $("#header-icon-online").attr("hidden", !isOnline);
+        $("#header-icon-offline").attr("hidden", isOnline);
     }
 
     $('#player-controls-online').click(function() {
