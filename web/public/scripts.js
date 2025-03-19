@@ -36,7 +36,7 @@ $(function() {
         if(message.startsWith('/name')) {
             var oldUsername = username;
             username = message.split('/name')[1].substring(0, 30).trim();
-            localStorage.setItem('internet-temple-username', username);
+            localStorage.setItem('internet-temple-2-username', username);
             socket.emit("send chat message", oldUsername + " changed names to " + username + ".");
         }
         else {
