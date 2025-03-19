@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+  <head>
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>INTERNET TEMPLE 2</title>
+    <!--<link rel="shortcut icon" type="image/png" href="http://i.imgur.com/wds0irK.png"/>-->
+    <!--<link rel="stylesheet" type="text/css" href="styles.css" />-->
+  </head>
+  <body>
+    <audio controls>
+        <source src="http://localhost:8000/stream" type="audio/ogg">
+    </audio>
+    <br><br>
+    <textarea id="chat">Welcome to chat.</textarea>
+    <br><br>
+    <input id="chat-input" type="text" autofocus="true" placeholder="Enter chat messages here">
+    <button type="button" id="chat-send">Send</button>
+    <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="scripts.js"></script>
+  </body>
+</html>

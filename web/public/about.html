@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <link rel="shortcut icon" type="image/png" href="http://i.imgur.com/wds0irK.png"/>
+    <style media="screen">
+      body {
+        background-repeat: repeat;
+        background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('images/background.png');
+        background-size: cover;
+        background-repeat:repeat;
+        color: white;
+      }
+      #embed-code {
+        width: 358px;
+      }
+      a:link {
+          color: lightgreen;
+      }
+      a:visited {
+          color: lightgreen;
+      }
+      a:hover {
+          color: hotpink;
+      }
+    </style>
+    <title>ABOUT</title>
+  </head>
+  <body>
+    <h3>WHAT IS INTERNET TEMPLE?</h3>
+    <p>
+      INTERNET TEMPLE is a place to perform music online.
+    </p>
+    <h3>HOW DO I PERFORM AT INTERNET TEMPLE?</h3>
+    <ol>
+        <li>Go to <a target="_blank" href="https://www.youtube.com/livestreaming">youtube.com/livestreaming</a> and start a new live stream.</li>
+        <li>Copy and paste the URL for your live stream (e.g. "https://youtu.be/sf5dI4cZOUY") into the box below.</li>
+        <li>Hit Submit. You should now be streaming on INTERNET TEMPLE!</li>
+    </ol>
+    <input type="text" id="embed-code" placeholder='https://www.youtube.com/watch?v=UeXm8haCevQ'>
+    <button type="button" id="embed-submit">Submit</button>
+    <br>
+    <p>
+      When you're done, you may use this button to reset INTERNET TEMPLE: <button type="button" id="reset">Reset</button>
+    </p>
+    <h3>CREDITS</h3>
+    <p>
+      INTERNET TEMPLE was made by <a href="http://www.tobyalden.com/">Toby Alden</a>.<br>
+      Images borrowed from <a href="http://www.fmtownsmarty.tumblr.com">FM Towns Marty</a> and <a href="http://www.hardcoregaming101.net/">Hardcore Gaming 101</a>.
+    </p>
+    <script>
+      var socket = io();
+      $("#embed-submit").click(function() {
+        streamURL = $("#embed-code").val();
+        var re = /^.*(youtu.be\/|v\/|e\/|u\/\w+\/|embed\/|v=)([^#\&\?]*).*/
+        if(streamURL.match(re) != null) {
+            var embedURL = "https://www.youtube.com/embed/" + streamURL.match(re)[2] + "?showinfo=0&autoplay=1&rel=0&controls=0&modestbranding=0&disablekb=1"
+            console.log("sending " + embedURL);
+            socket.emit("embed submission", embedURL);
+            $("#embed-code").val("Thank you. You should now be streaming to INTERNET TEMPLE.");
+            $("#embed-code").attr("disabled", "disabled");
+            $("#embed-submit").prop("disabled",true);
+            return false;
+        }
+        else {
+            $("#embed-code").val("Not a valid URL!");
+            return false;
+        }
+      });
+      $("#reset").click(function() {
+        socket.emit("embed submission", "https://www.youtube.com/embed/" + "DOvy38gU4Ls" + "?showinfo=0&autoplay=1&rel=0&controls=0&modestbranding=0&disablekb=1");
+      });
+    </script>
+  </body>
+</html>
