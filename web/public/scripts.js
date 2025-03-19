@@ -14,8 +14,8 @@ $(function() {
     });
 
     socket.on("get chat message", function(message) {
-        $("#chat").val($("#chat").val() + "\n" + message);
-        $('#chat').scrollTop($('#chat')[0].scrollHeight);
+        $("#chat-log").val($("#chat-log").val() + "\n" + message);
+        $('#chat-log').scrollTop($('#chat-log')[0].scrollHeight);
     });
 
     $(document).keypress(function(e) {
@@ -29,7 +29,10 @@ $(function() {
     });
 
     function sendChatMessage() {
-        message = $("#chat-input").val();
+        message = $("#chat-input").val().trim();
+        if(message.length == 0) {
+            return;
+        }
         if(message.startsWith('/name')) {
             var oldUsername = username;
             username = message.split('/name')[1].substring(0, 30).trim();
