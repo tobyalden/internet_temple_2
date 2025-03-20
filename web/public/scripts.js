@@ -51,6 +51,12 @@ $(function() {
             if("source" in data.icestats) {
                 console.log("stream running");
                 setSteamStatus(true);
+                if("title" in data.icestats.source) {
+                    updateStreamTitle(data.icestats.source.title);
+                }
+                else {
+                    updateStreamTitle("");
+                }
             }
             else {
                 console.log("stream not running");
@@ -60,6 +66,48 @@ $(function() {
             console.log("stream not running");
             setSteamStatus(false);
         });
+    }
+
+    function isValidUrl(string) {
+        let url;
+        try {
+            url = new URL(string);
+        } catch (_) {
+            return false;
+        }
+        return url.protocol === "http:" || url.protocol === "https:";
+    }
+
+    function updateStreamTitle(newTitle) {
+        var newTitleParts = newTitle.split("gif:");
+        newTitle = newTitleParts[0];
+        if(newTitleParts.length > 1) {
+            var gifUrl = newTitleParts[1];
+            if(isValidUrl(gifUrl)) {
+                $('#player-controls-online').css(
+                    'background-image',
+                    'url(' + gifUrl + ')'
+                );
+            }
+        }
+        else {
+            $('#player-controls-online').css(
+                'background-image',
+                "url('images/green.png')"
+            );
+        }
+        if(newTitle == "") {
+            $("#player-title").attr("hidden", true);
+        }
+        else {
+            newTitle = newTitle.trim()
+            var maxLength = 100;
+            if(newTitle.length > maxLength) {
+                newTitle = newTitle.substring(0, maxLength) + "...";
+            }
+            $("#player-title").text(newTitle);
+            $("#player-title").attr("hidden", false);
+        }
     }
 
     function setSteamStatus(isOnline) {
