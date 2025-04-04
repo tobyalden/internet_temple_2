@@ -47,7 +47,7 @@ $(function() {
 
     function updateStreamStatus() {
         console.log("updating stream status");
-        $.getJSON("http://stream.radio2.life/status-json.xsl", function(data) {
+        $.getJSON("https://stream.radio2.life/status-json.xsl", function(data) {
             if("source" in data.icestats) {
                 console.log("stream running");
                 setSteamStatus(true);
