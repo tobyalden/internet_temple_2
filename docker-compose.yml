@@ -8,5 +8,5 @@ services:
     environment:
       - ICECAST_HOSTNAME=stream.radio2.life
     env_file:
-      - path: ./secrets.env
+      - path: "./secrets.env"
         required: true
