@@ -49,8 +49,8 @@ $(function() {
         console.log("recieved status");
         if(currentStreamStatus.isStreaming) {
             setSteamStatus(true);
-            if(currentStreamStatus.title) {
-                updateStreamTitle(currentStreamStatus.title);
+            if(currentStreamStatus.streamTitle) {
+                updateStreamTitle(currentStreamStatus.streamTitle);
             }
             else {
                 updateStreamTitle('');
