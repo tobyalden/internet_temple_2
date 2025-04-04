@@ -62,7 +62,8 @@ $(function() {
                 console.log("stream not running");
                 setSteamStatus(false);
             }
-        }).fail(function () {
+        }).fail(function (error) {
+            console.log("Request Failed: "+ error );
             console.log("stream not running");
             setSteamStatus(false);
         });
