@@ -6,8 +6,7 @@ services:
     ports:
       - 8002:8000
     environment:
-      - ICECAST_SOURCE_PASSWORD=lifeisawaveletsride
-      - ICECAST_ADMIN_PASSWORD=lifeisawaveletsride
-      - ICECAST_PASSWORD=lifeisawaveletsride
-      - ICECAST_RELAY_PASSWORD=lifeisawaveletsride
       - ICECAST_HOSTNAME=stream.radio2.life
+    env_file:
+      - path: ./secrets.env
+        required: true
