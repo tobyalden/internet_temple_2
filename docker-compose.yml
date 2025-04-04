@@ -1,11 +1,13 @@
 services:
   icecast2:
-    image: pltnk/icecast2
+    image: moul/icecast
     container_name: icecast2
     restart: always
     ports:
       - 8002:8000
-    volumes:
-      - type: bind
-        source: ./icecast.xml
-        target: /etc/icecast2/icecast.xml
+    environment:
+      - ICECAST_SOURCE_PASSWORD=lifeisawaveletsride
+      - ICECAST_ADMIN_PASSWORD=lifeisawaveletsride
+      - ICECAST_PASSWORD=lifeisawaveletsride
+      - ICECAST_RELAY_PASSWORD=lifeisawaveletsride
+      - ICECAST_HOSTNAME=stream.radio2.life
