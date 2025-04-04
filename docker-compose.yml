@@ -7,6 +7,4 @@ services:
       - 8002:8000
     environment:
       - ICECAST_HOSTNAME=stream.radio2.life
-    env_file:
-      - path: "./secrets.env"
-        required: true
+    env_file: ./secrets.env
