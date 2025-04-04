@@ -45,29 +45,16 @@ $(function() {
         $("#chat-input").val("");
     }
 
-    function updateStreamStatus() {
-        console.log("updating stream status");
-        $.getJSON("https://stream.radio2.life/status-json.xsl?callback=?", function(data) {
-            if("source" in data.icestats) {
-                console.log("stream running");
-                setSteamStatus(true);
-                if("title" in data.icestats.source) {
-                    updateStreamTitle(data.icestats.source.title);
-                }
-                else {
-                    updateStreamTitle("");
-                }
-            }
-            else {
-                console.log("stream not running");
-                setSteamStatus(false);
-            }
-        }).fail(function (error) {
-            console.log("Request Failed: "+ error );
-            console.log("stream not running");
+    socket.on("send current stream status", function(currentStreamStatus) {
+        console.log("recieved status");
+        if(currentStreamStatus.isStreaming) {
+            setSteamStatus(true);
+            updateStreamTitle(currentStreamStatus.title);
+        }
+        else {
             setSteamStatus(false);
-        });
-    }
+        }
+    });
 
     function isValidUrl(string) {
         let url;
@@ -145,9 +132,10 @@ $(function() {
         $("#player-pause").attr("hidden", false);
     }
 
-    updateStreamStatus();
+    socket.emit("request current stream status")
     setInterval(function() {
-        updateStreamStatus();
+        console.log("requesting status");
+        socket.emit("request current stream status")
     }, 5000);
 });
 
