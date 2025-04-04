@@ -47,7 +47,7 @@ $(function() {
 
     function updateStreamStatus() {
         console.log("updating stream status");
-        $.getJSON("http://localhost:8000/status-json.xsl", function(data) {
+        $.getJSON("http://monkeyguncamp.com:8002/status-json.xsl", function(data) {
             if("source" in data.icestats) {
                 console.log("stream running");
                 setSteamStatus(true);
