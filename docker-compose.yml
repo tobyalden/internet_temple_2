@@ -6,4 +6,6 @@ services:
     ports:
       - 8002:8000
     volumes:
-      - ./icecast.xml:/etc/icecast.xml
+      - type: bind
+        source: ./icecast.xml
+        target: /etc/icecast2/icecast.xml
